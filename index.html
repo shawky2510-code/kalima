@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalima — Dictionary &amp; Translator</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f766e'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='white' font-family='Tahoma'%3E%D9%83%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="mark" aria-hidden="true">ك</span>
+    <span class="brandtext"><b data-i18n="appName"></b><small data-i18n="tagline"></small></span>
+  </div>
+  <nav class="tabs">
+    <button class="tab on" data-view="translate" data-i18n="tabTranslate"></button>
+    <button class="tab" data-view="archive"><span data-i18n="tabArchive"></span> <span class="count" id="archCount">0</span></button>
+  </nav>
+  <div class="tools">
+    <button class="ghost" id="uiLangBtn"></button>
+    <button class="icon" id="themeBtn" data-i18n-title="theme"><i data-icon="moon"></i></button>
+    <button class="icon" id="settingsBtn" data-i18n-title="settings"><i data-icon="gear"></i></button>
+  </div>
+</header>
+
+<main>
+  <!-- ============ TRANSLATE ============ -->
+  <section id="view-translate">
+    <div class="langbar">
+      <div class="langpick" id="srcPick"></div>
+      <button class="icon swap" id="swapBtn" data-i18n-title="swap"><i data-icon="swap"></i></button>
+      <div class="langpick" id="tgtPick"></div>
+    </div>
+
+    <div class="panels">
+      <div class="panel">
+        <textarea id="input" dir="auto" maxlength="10000" data-i18n-ph="inputPh" spellcheck="true"></textarea>
+        <div class="panelbar">
+          <button class="icon" id="speakIn" data-i18n-title="listen"><i data-icon="speaker"></i></button>
+          <button class="icon" id="pasteBtn" data-i18n-title="paste"><i data-icon="paste"></i></button>
+          <button class="icon" id="clearBtn" data-i18n-title="clear"><i data-icon="x"></i></button>
+          <span class="grow"></span>
+          <span class="muted small" id="charCount">0 / 10000</span>
+        </div>
+      </div>
+
+      <div class="panel out">
+        <div id="output" class="outtext" dir="auto" aria-live="polite"></div>
+        <div class="panelbar">
+          <button class="icon" id="speakOut" data-i18n-title="listen"><i data-icon="speaker"></i></button>
+          <button class="icon" id="copyBtn" data-i18n-title="copy"><i data-icon="copy"></i></button>
+          <button class="icon" id="favBtn" data-i18n-title="favourite"><i data-icon="star"></i></button>
+          <span class="grow"></span>
+          <span id="dlCurrent"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actionrow">
+      <button class="primary" id="goBtn"><span data-i18n="translate"></span> <kbd>Ctrl ↵</kbd></button>
+      <label class="check"><input type="checkbox" id="grammarToggle"> <span data-i18n="grammarToggle"></span></label>
+      <span class="grow"></span>
+      <span class="muted small" id="status"></span>
+      <span class="muted small" id="usage"></span>
+    </div>
+
+    <div class="error" id="error" hidden></div>
+
+    <div class="card" id="grammarCard" hidden></div>
+    <div class="card" id="outCheckCard" hidden></div>
+    <div class="card dict" id="dictCard" hidden></div>
+  </section>
+
+  <!-- ============ ARCHIVE ============ -->
+  <section id="view-archive" hidden>
+    <div class="archbar">
+      <div class="searchbox"><i data-icon="search"></i><input type="search" id="archSearch" data-i18n-ph="archSearchPh"></div>
+      <select id="archLang"></select>
+      <label class="check"><input type="checkbox" id="archFav"> <span data-i18n="favOnly"></span></label>
+      <span class="grow"></span>
+      <span id="dlArchive"></span>
+      <button class="ghost" id="importBtn"><i data-icon="upload"></i> <span data-i18n="import"></span></button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+      <button class="ghost danger" id="delSelBtn"><i data-icon="trash"></i> <span id="delSelLabel"></span></button>
+    </div>
+    <div class="muted small archinfo">
+      <label class="check"><input type="checkbox" id="selAll"> <span data-i18n="selectAll"></span></label>
+      <span id="archInfo"></span>
+    </div>
+    <div id="archList" class="archlist"></div>
+  </section>
+</main>
+
+<dialog id="settingsDlg">
+  <form method="dialog">
+    <h2 data-i18n="settings"></h2>
+    <label class="field">
+      <span data-i18n="emailLabel"></span>
+      <input type="email" id="emailInput" placeholder="name@example.com" dir="ltr">
+      <small class="muted" data-i18n="emailHelp"></small>
+    </label>
+    <h3 data-i18n="aboutTitle"></h3>
+    <p class="muted small" data-i18n="aboutText"></p>
+    <p class="muted small" id="storageNote"></p>
+    <div class="dlgbar"><button class="primary" id="settingsSave" data-i18n="save"></button></div>
+  </form>
+</dialog>
+
+<div id="toast" hidden></div>
+
+<script src="config.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
